@@ -58,7 +58,7 @@
     <ul>
       {volist name="hotNews" id="hotNews"}
       <li class="num2 curr">
-        <a target="_blank" href="{:url('news/detail',['id'=>$hotNews])}">{$key|getNewsTitle}</a>
+        <a target="_blank" href="{:url('news/detail',['id'=>$key])}">{$key|getNewsTitle}</a>
       </li>
       {/volist}
     </ul>
