@@ -1,0 +1,93 @@
+{include file="public/header"}
+<body>
+<header id="header">
+  <div class="navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="">
+          <img src="../static/index/image/logo.png" alt="">
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-left">
+          <li><a href="{:url('index/index')}">首页</a></li>
+          {volist name="category" id="category"}
+          <li>
+              <a href="{:url('news/index',['catid'=>$category.id])}" {if condition="$category.id eq $news.catid"}class="curr"{/if}>{$category.cat_name}</a>
+          </li>
+          {/volist}
+      </ul>
+    </div>
+  </div>
+</header>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9 col-md-9">
+                    <h1 style="text-align: center">{$news.title}</h1>
+                    <p style="text-align: right">新闻发表于:{$news.create_time}</p>
+					<div class="news-detail">
+						{$news.content}
+                    </div>
+				</div>
+				<div class="col-sm-3 col-md-3">
+  <div class="right-title">
+    <h3>文章排行</h3>
+    <span>TOP ARTICLES</span>
+  </div>
+
+  <div class="right-content">
+      <ul>
+          {volist name="hotNews" id="hotNews"}
+          <li class="num2 curr">
+              <a target="_blank" href="{:url('news/detail',['id'=>$hotNews])}">{$key|getNewsTitle}</a>
+          </li>
+          {/volist}
+      </ul>
+  </div>
+  </div>
+				<!-- end right-->
+			</div>
+		</div>
+	</section>
+{if($news.is_allowcomments == 1)}
+<section class="tent_info">
+    <div class="col-md-12 col-sm-12 col-xl-12 textarea one">
+        <textarea class="text_send" id="text_send"></textarea>
+        <div class="col-md-12 col-sm-12 col-xl-12 btn btn_send">提交</div>
+    </div>
+    {volist name="comments" id="comments"}
+    <div class="col-md-12 col-sm-12 col-xl-12 one cont">
+        <div class="col-md-2 col-sm-2 col-xl-12 one img">
+            <img src="http://cshu.news.com/upload{$comments.image}" style="border-radius: 100%;width: 100px;height: 100px;">
+        </div>
+        <div class="col-md-10 col-sm-10 col-xl-12 one content">
+            <div class="comment-right">
+                <h4>{$comments.username}</h4>
+                <div class="comment-content-header three">
+                    <span>时间：{$comments.create_time|date="Y-m-d H:i:s", ###}</span>
+                    </div>
+                <p class="tent">{$comments.content}</p>
+                {if(!empty($comments['treeComment']))}
+                {volist name="comments['treeComment']" id="treeComment"}
+                <div class="reply-list three" style="margin-left: 30px">
+                    <div class="reply">
+                        <div class="three">
+                            <a class="replyname">{$treeComment.username}</a> : <span >@{$comments.username}</span><span> {$treeComment.create_time|date="Y-m-d H:i:s", ###}</span>
+                        </div>
+                    </div>
+                    <p><span>{$treeComment.content}</span></p>
+                </div>
+                {/volist}
+                {/if}
+                <div class="col-md-12 col-sm-12 col-xl-12 content_text one three">
+                    <textarea class="col-md-10 col-sm-10 col-xl-10 con_back" id="con_back"></textarea>
+                    <div class="col-md-2 col-sm-2 col-xl-2 btn btn_back" data-to-user-id="{$comments.user_id}" data-parent-id="{$comments.id}">提交</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    {/volist}
+</section>
+{/if}
+{include file="public/footer"}
+</body></html>

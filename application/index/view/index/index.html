@@ -1,0 +1,72 @@
+{include file="public/header"}
+<body>
+<header id="header">
+  <div class="navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="">
+          <img src="../static/index/image/logo.png" alt="">
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-left">
+        <li><a href="{:url('index/index')}" class="curr">首页</a></li>
+        {volist name="category" id="category"}
+        <li>
+          <a href="{:url('news/index',['catid'=>$category.id])}">{$category.cat_name}</a>
+        </li>
+        {/volist}
+      </ul>
+      <div class="user">
+        <a href="{:url('index/login/index')}">
+          <img src="http://cshu.news.com/upload\20190305\43afa97936cf6fb192ad8c53fed9bfca.jpg" class="user-img">
+          <p style="color: #ffffff;text-align: center" class="user-login-name">未登录</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-9">
+        <div class="news-list">
+          {volist name="positionNews" id="positionNews"}
+          <dl>
+            <dt><a target="_blank" href="{:url('news/detail',['id'=>$positionNews.id])}">{$positionNews.title}</a></dt>
+            <dd class="news-img">
+              <a target="_blank" href="{:url('news/detail',['id'=>$positionNews.id])}"><img width="200" height="120" src="{$positionNews.image}" alt="{$positionNews.title}"></a>
+            </dd>
+            <dd class="news-intro">
+              {$positionNews.description}
+            </dd>
+            <dd class="news-info" style="float: right;">
+               <span>{$positionNews.create_time}</span> 阅读(<i news-id="{$positionNews.id}" class="news_count node-24">{$positionNews.read_count}</i>)
+            </dd>
+          </dl>
+          {/volist}
+        </div>
+        {$page}
+      </div>
+      <!--网站右侧信息-->
+      <div class="col-sm-3 col-md-3">
+  <div class="right-title">
+    <h3>文章排行</h3>
+    <span>TOP ARTICLES</span>
+  </div>
+
+  <div class="right-content">
+    <ul>
+      {volist name="hotNews" id="hotNews"}
+      <li class="num2 curr">
+        <a target="_blank" href="{:url('news/detail',['id'=>$hotNews])}">{$key|getNewsTitle}</a>
+      </li>
+      {/volist}
+    </ul>
+  </div>
+      </div>
+    </div>
+  </div>
+</section>
+{include file="public/footer"}
+</body>
+</html>
