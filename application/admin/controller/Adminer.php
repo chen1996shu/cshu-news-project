@@ -30,15 +30,16 @@ class Adminer extends Base
             if(!$validate->check($data)){
                 $this->error($validate->getError());
             }
-            //判断该账号是否已经存在
+            //判断该账号是否已经存在,并做过滤防止sql注入
             $condition = [
-                'username' => $data['username'],
+                'username' => str_replace(' ','',$data['username']),
             ];
             $ret = Model('Adminer')->find($condition);
             if($ret){
                 return $this->error('管理员账号已存在');
             }
             $data['password'] = md5($data['password']);
+            $data['username'] = str_replace('script','',$data['username']);
             $data['create_time'] = time();
             $result = Model('Adminer')->add($data);
             if($result){

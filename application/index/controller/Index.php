@@ -20,4 +20,11 @@ class Index extends Base
             'page' =>$page,
         ]);
     }
+
+    public function test(){
+    	$str = "zhang3' OR 1=1 #";
+		dump($str);
+		$str = str_replace(' ','',$str);
+    	halt($str);
+	}
 }

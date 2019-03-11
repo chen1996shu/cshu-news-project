@@ -15,6 +15,7 @@ class Comment extends Base
         if(empty($data['news_id'])){
             return show(-1, '非法操作');
         }
+        $data['content'] = htmlspecialchars($data['content']);
         $data['create_time'] = time();
         $ret= Model('Comment')->add($data);
         if($ret){

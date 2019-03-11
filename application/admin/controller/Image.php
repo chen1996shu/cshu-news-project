@@ -16,7 +16,12 @@ class Image extends Base
      * 图片上传
      */
     public function upload() {
-        $file = Request::instance()->file('file');
+        $file = request()->file('file');
+        //对图片格式进行验证
+        $message = $file->check(['ext'=>'jpg, png, gif, jpeg']);
+        if(!$message){
+        	return json_encode(['status' => 0, 'message' => $file->getError()]);
+		}
         // 把图片上传到指定的文件夹中
         $info = $file->move('upload');
         if($info && $info->getPathname()) {

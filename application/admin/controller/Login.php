@@ -20,7 +20,8 @@ class Login extends Base
                 return show(-1,'验证码错误');
             }
             $condition = [
-                'username' => $data['username'],
+            	//字符串替换,防止sql注入
+                'username' => str_replace(' ','',$data['username']),
             ];
             $adminer = Model('Adminer')->find($condition);
             if(!$adminer){

@@ -24,14 +24,14 @@ class News extends Base
 
     //文章详情
     public function detail($id){
-        $news = Model('News')->find(['id'=>$id]);
+        $news = Model('News')->find(['id'=>intval($id)]);
         //redis zSet当中的该成员阅读数+1
         $redis = new Redis();
         $redis->zincrby('hotNews',1, $news['id']);
         Model('News')->addReadCount(['id'=>$id]);
         //获取评论详情
         $commentCondition = [
-            'c.news_id' => $id,
+            'c.news_id' => intval($id),
             'c.to_user_id' => 0,
         ];
         $field = "c.*,u.username,u.image";
