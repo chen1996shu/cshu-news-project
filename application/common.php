@@ -87,3 +87,17 @@ function status($id, $status) {
 function isYesNo($str) {
     return $str ? '<span style="color:red"> 是</span>' : '<span > 否</span>';
 }
+
+/**
+ * 防止Sql注入,对输入的数据进行字符转换
+ * @param string $str
+ */
+function sqlReplace($str){
+	$str = str_replace(" ","", $str);
+	$str = str_replace("#", "", $str);
+	$str = str_replace("=", "", $str);
+	$str = str_replace("&", "&amp;", $str);
+	$str = str_replace("<", "&lt;", $str);
+	$str = str_replace(">", "&gt;", $str);
+	return $str;
+}

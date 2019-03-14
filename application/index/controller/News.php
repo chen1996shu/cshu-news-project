@@ -10,7 +10,7 @@ class News extends Base
     public function index($catid)
     {
         $condition = [
-            'catid' => $catid, //栏目下的文章
+            'catid' => intval($catid), //栏目下的文章
             'status' => 1, //审核通过的
         ];
         $order['listorder'] = 'desc';

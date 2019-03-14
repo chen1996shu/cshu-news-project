@@ -17,6 +17,8 @@ class Comment extends Base
         }
         $data['content'] = htmlspecialchars($data['content']);
         $data['create_time'] = time();
+		$data['news_id'] = intval($data['news_id']);
+		$data['user_id'] = intval($data['news_id']);
         $ret= Model('Comment')->add($data);
         if($ret){
             return show(1,'评论成功');

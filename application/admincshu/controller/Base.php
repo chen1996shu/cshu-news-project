@@ -1,5 +1,5 @@
 <?php
-namespace app\admin\controller;
+namespace app\admincshu\controller;
 use think\Controller;
 //校验用户是否登录
 

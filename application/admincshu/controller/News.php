@@ -5,7 +5,7 @@
  * Date: 2019/3/4
  * Time: 14:41
  */
-namespace app\admin\controller;
+namespace app\admincshu\controller;
 use think\Controller;
 use think\Model;
 use think\Validate;
@@ -70,7 +70,7 @@ class News extends Base
     //修改审核状态
     public function status($id, $status){
         $condition = [
-            'id'=> $id
+            'id'=> intval($id)
         ];
         $update = [
             'status' => $status,
@@ -86,7 +86,7 @@ class News extends Base
     //删除新闻
     public function delete($id){
         $condition = [
-            'id'=> $id
+            'id'=> intval($id)
         ];
         $result = Model('News')->deleteNews($condition);
         if($result){
@@ -97,7 +97,7 @@ class News extends Base
     }
     //编辑页面
     public function edit($id){
-        $news = Model('News')->find(['id'=>$id]);
+        $news = Model('News')->find(['id'=>intval($id)]);
         $category = Model('Category')->select();
         return $this->fetch('',[
            'news' => $news,
@@ -108,7 +108,7 @@ class News extends Base
     public function update($id, $data){
         unset($data['id']);
         $condition = [
-            'id'=> $id
+            'id'=> intval($id)
         ];
         $result = Model('News')->updateNews($condition, $data);
         if($result){
@@ -122,7 +122,7 @@ class News extends Base
         $data = input('param.');
         unset($data['id']);
         $condition = [
-            'id'=> $id,
+            'id'=> intval($id),
         ];
         $result = Model('News')->updateNews($condition, $data);
         if($result){

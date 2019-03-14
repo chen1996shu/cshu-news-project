@@ -5,7 +5,7 @@
  * Date: 2019/3/4
  * Time: 14:41
  */
-namespace app\admin\controller;
+namespace app\admincshu\controller;
 use think\Controller;
 use think\Model;
 use think\Validate;
